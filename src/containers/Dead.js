@@ -6,7 +6,7 @@ import "./Dead.css";
 export default class Dead extends Component {
 
      revive(catID) {
-          fetch('https://catsimserver.herokuapp.com/revive', {
+          fetch('https://catsimulator.herokuapp.com/revive', {
                method: 'POST',
                headers: {
                     'Content-Type': 'application/json'
@@ -23,7 +23,7 @@ export default class Dead extends Component {
 
      resetTS(button, id) {
           var sql = '{ "catID" : ' + id + ' , "' + button + '" : 0 }';
-          fetch('https://catsimserver.herokuapp.com/updatecat/' + button, {
+          fetch('https://catsimulator.herokuapp.com/updatecat/' + button, {
                method: 'POST',
                headers: {
                     'Content-Type': 'application/json'
