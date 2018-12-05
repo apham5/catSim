@@ -1,0 +1,18 @@
+.circle-background,
+.circle-progress {
+  fill: none;
+}
+
+.circle-background {
+  stroke: #ddd;
+}
+
+.circle-progress {
+  stroke: burlywood;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+svg {
+  margin: 20px;
+}

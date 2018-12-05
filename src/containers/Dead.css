@@ -1,0 +1,30 @@
+.Dead {
+     font-family: 'Lucida Console', Monaco, monospace;
+     text-align: center;
+     position: relative;
+     display: flex;
+     flex-direction: column;
+}
+
+button {
+     margin: auto;
+     padding: 10px 0;
+     max-width: 400px;
+     font-size: 100px;
+}
+
+.btn-default {
+     background-color: burlywood;
+     border: 1px solid black;
+     font-weight: bold;
+}
+
+.btn-default:hover {
+     background-color: #c38d48;
+     border: 1px solid black;
+}
+
+.btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default:active.focus, .btn-default:active:focus, .btn-default:active:hover, .open>.dropdown-toggle.btn-default.focus, .open>.dropdown-toggle.btn-default:focus, .open>.dropdown-toggle.btn-default:hover {
+     background-color: #c38d48;
+     border: 1px solid black;
+}

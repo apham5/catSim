@@ -1,0 +1,53 @@
+
+  .Login {
+    font-family: 'Lucida Console', Monaco, monospace;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .Login form {
+    margin: 25px auto;
+    min-width: 600px;
+    height: 500px;
+    background-image: url("assets/login.png");
+    background-size: 600px 500px;
+    text-align: center;
+  }
+
+  .Login h1 {
+    margin: 20px auto;
+    font-size: 100px;
+  }
+
+  .Login h6 {
+   margin: 20px auto;
+  }
+
+  .form-group {
+    margin: auto;
+    padding: 10px 0;
+    max-width: 400px;
+    font-size: 24px;
+  }
+
+  button {
+    margin-bottom: 30px;
+    padding: 10px 0;
+    max-width: 400px;
+    font-size: 100px;
+  }
+
+  .blankspacelogin {
+    height: 125px;
+  }
+
+  a {
+    margin: 20px;
+  }
+
+  #login {
+    margin: 15px auto;
+    margin-bottom: 40px;
+  }

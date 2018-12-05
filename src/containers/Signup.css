@@ -1,0 +1,71 @@
+
+    .Signup {
+      font-family: 'Lucida Console', Monaco, monospace;
+      text-align: center;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .Signup form {
+      margin: auto;
+      height: 665px;  
+      min-width: 600px;
+      background-image: url("assets/reg.png");
+      background-size: 600px 650px;
+      background-repeat: no-repeat;
+    }
+
+    .Signup h1 {
+      margin: 10px auto;
+      font-size: 60px;
+    }
+
+    .form-group {
+      margin: auto;
+      padding: 10px 0;
+      max-width: 400px;
+      font-size: 24px;
+    }
+  
+    .blankspace {
+      height: 110px;
+    }
+  
+    #register {
+      margin: 15px auto;
+    }
+    
+    .dropdown-toggle {
+      /* margin:  10px; */
+      height: 50px; 
+      min-width: 100px;
+      font-size: 18px;
+    }
+
+    .dropdown-toggle:active {
+      background-color: black;
+    }
+
+    .dropdown-menu {
+      text-align: center;
+      /* padding: 10px 0px; */
+      min-width: 200px;
+      float: center;
+      font-size: 18px;
+    }
+
+    .colorPad {
+      min-width:290px;
+      height:50px;
+      margin-right: 10px;
+      border-radius: 4px;
+      border: solid 1px darkslategray;
+    }
+
+    .colorPicker {
+      display: flex;
+    }
