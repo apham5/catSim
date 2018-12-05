@@ -61,7 +61,7 @@ export default class Signup extends Component {
     }
 
     try {
-      fetch('http://testappvsian.gearhostpreview.com/newuser', {
+      fetch('https://catsimserver.herokuapp.com/newuser', {
          method: 'POST',
          headers: {
               'Content-Type': 'application/json'
