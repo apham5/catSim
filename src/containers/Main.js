@@ -144,7 +144,7 @@ export default class Main extends Component {
                     if ((currentTS-cat.hungerTS>def.h*2) 
                      && (currentTS-cat.cleanlinessTS>def.h*2) 
                      && (currentTS-cat.sleepinessTS>def.h*2)) {
-                         this.dead(); 
+                         this.dead(cat.catName); 
                     } 
                     this.setState(state => ({
                          feed_timestamp: cat.hungerTS,
@@ -162,7 +162,7 @@ export default class Main extends Component {
           }
      }
 
-     dead() {
+     dead(name) {
           fetch('https://catsimserver.herokuapp.com/dead', {
                method: 'POST',
                headers: {
@@ -172,7 +172,7 @@ export default class Main extends Component {
                     catID: this.state.cat_id
                })
           }, { mode: 'no-cors'})
-          this.props.history.push("/dead?id=" + this.state.cat_id + "&name=" + this.state.cat_name);
+          this.props.history.push("/dead?id=" + this.state.cat_id + "&name=" + name);
      }
 
      renderCat() {
