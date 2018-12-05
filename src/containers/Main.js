@@ -37,7 +37,7 @@ export default class Main extends Component {
 
      updateTS(button) {
           var sql = '{ "catID" : ' + this.state.cat_id + ' , "' + button + '" : ' + Math.floor(Date.now()/1000) + '}';
-          fetch('https://catsimulator.herokuapp.com/updatecat/' + button, {
+          fetch('https://catsimserver.herokuapp.com/updatecat/' + button, {
                method: 'POST',
                headers: {
                     'Content-Type': 'application/json'
@@ -96,7 +96,7 @@ export default class Main extends Component {
                const query = new URLSearchParams(this.props.location.search);
                const value = query.get('id');
                this.setState({cat_id: value});
-               fetch('https://catsimulator.herokuapp.com/getcat?catid='+value)
+               fetch('https://catsimserver.herokuapp.com/getcat?catid='+value)
                .then(response => {
                     return response.json();
                }).then(text => {
@@ -109,7 +109,7 @@ export default class Main extends Component {
      //      const query = new URLSearchParams(this.props.location.search);
      //      const value = query.get('id');
      //      this.setState({cat_id: value});
-     //      fetch('http://testappvsian.gearhostpreview.com/getcat?catid='+value)
+     //      fetch('http://catsimserver.herokuapp.com/getcat?catid='+value)
      //      .then(response => {
      //           return response.json();
      //      }).then(text => {
@@ -163,7 +163,7 @@ export default class Main extends Component {
      }
 
      dead(name) {
-          fetch('https://ccatsimulator.herokuapp.com/dead', {
+          fetch('https://catsimserver.herokuapp.com/dead', {
                method: 'POST',
                headers: {
                     'Content-Type': 'application/json'
