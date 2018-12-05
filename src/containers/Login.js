@@ -31,7 +31,7 @@ export default class Login extends Component {
     event.preventDefault();
     
     try {
-      fetch('http://testappvsian.gearhostpreview.com/checkuser', {
+      fetch('https://catsimserver.herokuapp.com/checkuser', {
          method: 'POST',
          headers: {
               'Content-Type': 'application/json'
