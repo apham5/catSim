@@ -2,16 +2,19 @@ import React, { Component } from "react";
 import { Label } from "react-bootstrap";
 import StyledProgressbar from "./StyledProgressbar";
 import { Link } from "react-router-dom";
+import Sound from 'react-sound';
 import "./Main.css";
 import cat_default from "./assets/cat_default.png";
 import cat_badmood from "./assets/cat_badmood.png";
 import cat_eat from "./assets/cat_eat.png";
 import cat_shower from "./assets/cat_shower.png";
 import cat_sleep from "./assets/cat_sleep.png";
+import cat_meow from "./assets/cat_meow.png";
 import button_feed from "./assets/button_feed.png";
 import button_shower from "./assets/button_shower.png";
 import button_sleep from "./assets/button_sleep.png";
 import button_chat from "./assets/button_chat.png";
+import meow from "./assets/meow.mp3";
 import def from "./default.json";
 
 export default class Main extends Component {
@@ -25,13 +28,15 @@ export default class Main extends Component {
                feed_timer: def.h,
                shower_timer: def.h,
                sleep_timer: def.h,
+               meow_timer: def.h,
                cat: cat_default,
                cat_color: "",
                cat_id: "",
                cat_name: "",
                feed_timestamp: 0,
                shower_timestamp: 0,
-               sleep_timestamp: 0
+               sleep_timestamp: 0,
+               soundComponent: false
           };
      }
 
@@ -85,6 +90,19 @@ export default class Main extends Component {
           }), ()=>{console.log("last time sleep cat: " + this.state.sleep_timestamp)});
      }
 
+     meow_countdown() {
+          this.setState(state => ({
+               meow_timer: state.meow_timer - def.h/1000
+          }));
+     }
+
+     meow_reset() {
+          this.setState(state => ({
+               meow_timer: def.h,
+               meow_timestamp: Math.floor(Date.now()/1000)
+          }));
+     }
+
      componentDidMount() {
           this.mounted = true;
           if (this.mounted) {
@@ -92,6 +110,7 @@ export default class Main extends Component {
                     this.feed_countdown();
                     this.shower_countdown();
                     this.sleep_countdown();
+                    this.meow_countdown();
                }, def.h);
                const query = new URLSearchParams(this.props.location.search);
                const value = query.get('id');
@@ -109,7 +128,7 @@ export default class Main extends Component {
      //      const query = new URLSearchParams(this.props.location.search);
      //      const value = query.get('id');
      //      this.setState({cat_id: value});
-     //      fetch('http://catsimserver.herokuapp.com/getcat?catid='+value)
+     //      fetch('http://testappvsian.gearhostpreview.com/getcat?catid='+value)
      //      .then(response => {
      //           return response.json();
      //      }).then(text => {
@@ -123,6 +142,10 @@ export default class Main extends Component {
 
      process(cat) {
           document.title = cat.catName;
+          this.setState(state => ({
+               cat_color: cat.color,
+               cat_name : cat.catName
+          }));
           if (cat.lifeStatus===0) {
                this.props.history.push("/dead?id=" + cat.catID + "&name=" + cat.catName);
           } else {
@@ -144,7 +167,7 @@ export default class Main extends Component {
                     if ((currentTS-cat.hungerTS>def.h*2) 
                      && (currentTS-cat.cleanlinessTS>def.h*2) 
                      && (currentTS-cat.sleepinessTS>def.h*2)) {
-                         this.dead(cat.catName); 
+                         this.dead(); 
                     } 
                     this.setState(state => ({
                          feed_timestamp: cat.hungerTS,
@@ -155,14 +178,10 @@ export default class Main extends Component {
                          sleep_timer: def.h + cat.sleepinessTS - currentTS
                     }));
                }
-               this.setState(state => ({
-                    cat_color: cat.color,
-                    cat_name : cat.catName
-               }));
           }
      }
 
-     dead(name) {
+     dead() {
           fetch('https://catsimserver.herokuapp.com/dead', {
                method: 'POST',
                headers: {
@@ -172,12 +191,12 @@ export default class Main extends Component {
                     catID: this.state.cat_id
                })
           }, { mode: 'no-cors'})
-          this.props.history.push("/dead?id=" + this.state.cat_id + "&name=" + name);
+          this.props.history.push("/dead?id=" + this.state.cat_id + "&name=" + this.state.cat_name);
      }
 
      renderCat() {
           var cat = this.state.cat;
-          if (this.state.feed_timer<def.h-2 & this.state.shower_timer<def.h-2 & this.state.sleep_timer<def.h-2) cat = cat_default;
+          if (this.state.feed_timer<def.h-2 & this.state.shower_timer<def.h-2 & this.state.sleep_timer<def.h-2 & this.state.meow_timer<def.h-0.75) cat = cat_default;
           if (this.state.feed_timer<-def.h/2 & this.state.shower_timer<-def.h/2 & this.state.sleep_timer<-def.h/2) cat = cat_badmood;
           if (this.state.feed_timer<-def.h & this.state.shower_timer<-def.h & this.state.sleep_timer<-def.h) this.dead(); 
           return (
@@ -191,6 +210,38 @@ export default class Main extends Component {
           this.setState(state => ({
                cat: cat
           }));
+     }
+
+     stopSound() {
+          console.log('uehuehue');
+          this.setState(state => ({
+               soundComponent: false
+          }));
+     }
+
+     changeSoundState() {
+          this.setState(state => ({
+               soundComponent: true
+          }));
+     }
+
+     playSound() {
+          if (this.state.soundComponent && this.state.meow_timer > (def.h-0.75)) {
+               return (
+                    <div className="sound">
+                         <Sound
+                         url={meow}
+                         playStatus={Sound.status.PLAYING}
+                         // onLoading={this.handleSongLoading}
+                         // onPlaying={this.handleSongPlaying}
+                         //onFinishedPlaying={this.stopSound()} 
+                         />
+                    </div>
+               );
+          }
+          else {
+               return;
+          }
      }
 
      render() {
@@ -238,10 +289,11 @@ export default class Main extends Component {
                          <Label type="button" className="button" id="sleep" onClick={() => {this.sleep_reset(); this.changeCat(cat_sleep); this.updateTS("sleep")}}>
                               <img src={button_sleep} alt="" width="140" height="140"/>
                          </Label>
-                         <Label type="button" className="button" id="chat">
+                         <Label type="button" className="button" id="chat" onClick = {() => {this.changeCat(cat_meow); this.changeSoundState(); this.meow_reset();}}>
                               <img src={button_chat} alt="" width="140" height="140"/>
                          </Label>
                     </div>
+                    {this.playSound()}
                </div>
           );
      }
