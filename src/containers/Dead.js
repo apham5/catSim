@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Button} from "react-bootstrap";
+import { Link } from "react-router-dom";
 import cat_dead from "./assets/cat_dead.png";
 import "./Dead.css";
 
@@ -48,14 +49,21 @@ export default class Dead extends Component {
 
      render() {
           const query = new URLSearchParams(this.props.location.search);
-          const value = query.get('name');
+          const name = query.get('name');
           const catID = query.get('id');
-          document.title = value + "...";
+          document.title = name + " is dead...";
           return(
-               <div className="Dead">
-                    <img src={cat_dead} alt="cat" id="cat"/>
-                    <div>{value} has died...</div>
-                    <Button type="submit" className="revive" onClick={()=>{this.revive(catID); this.resetTS("feed", catID); this.resetTS("shower", catID); this.resetTS("sleep", catID); }}>Revive</Button>
+               <div>
+                    <div className="header">
+                              <div className="logoutDead">
+                                   <Link to="/">Log out</Link>
+                              </div>
+                    </div> 
+                    <div className="Dead">
+                         <img src={cat_dead} alt="cat" id="cat"/>
+                         <div className="statementDead">{name} has died... You left your cat hungry, dirty, and sleepy for too long!</div>
+                         <Button type="submit" className="revive" onClick={()=>{this.revive(catID); this.resetTS("feed", catID); this.resetTS("shower", catID); this.resetTS("sleep", catID); }}>Click to bring {name} back to life.</Button>
+                    </div>
                </div>
           )
      }

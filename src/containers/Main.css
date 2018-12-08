@@ -1,7 +1,15 @@
+.Main {
+     font-family: 'Lucida Console', Monaco, monospace;
+     text-align: center;
+     position: relative;
+     display: flex;
+     flex-direction: column;
+}
+
 .emotion {
      display: flex;
      justify-content: space-around;
-     width: 50%;
+     /* width: 100%; */
 }
 
 #cat {
@@ -39,6 +47,7 @@
 .logout {
      text-align: right;
      width: 50%;
+     font-family: 'Lucida Console', Monaco, monospace;
 }
 
 .header {

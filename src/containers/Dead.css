@@ -28,3 +28,18 @@ button {
      background-color: #c38d48;
      border: 1px solid black;
 }
+
+.statementDead {
+     padding: 50px;
+}
+
+.logoutDead {
+     text-align: right;
+     width: 50%;
+     font-family: 'Lucida Console', Monaco, monospace;
+}
+
+.header {
+     display: flex;
+     justify-content: space-around;
+}

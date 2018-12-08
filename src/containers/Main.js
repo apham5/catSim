@@ -206,6 +206,39 @@ export default class Main extends Component {
           );
      }
 
+     renderStatement() {
+          if (this.state.feed_timer<-def.h/2 & this.state.shower_timer<-def.h/2 & this.state.sleep_timer<-def.h/2) {
+               return (
+                    <div className="statement">{this.state.cat_name} is getting dizzy. Neglect {this.state.cat_name} some more and {this.state.cat_name} might die!</div>
+               );
+          }
+          if (this.state.cat === cat_meow & this.state.meow_timer>def.h-0.75) {
+               return (
+                    <div className="statement">Meow!</div>
+               );
+          }
+          if (this.state.cat === cat_default || (this.state.feed_timer<def.h-2 & this.state.shower_timer<def.h-2 & this.state.sleep_timer<def.h-2)) {
+               return (
+                    <div className="statement">{this.state.cat_name} is silently judging you. Watch the timers to take care of {this.state.cat_name}.</div>
+               );
+          }
+          if (this.state.cat === cat_eat) {
+               return (
+                    <div className="statement">You fed {this.state.cat_name}. Now {this.state.cat_name} is full!</div>
+               );
+          }
+          if (this.state.cat === cat_shower) {
+               return (
+                    <div className="statement">You gave {this.state.cat_name} a shower. Now {this.state.cat_name} is sparkling clean!</div>
+               );
+          }
+          if (this.state.cat === cat_sleep) {
+               return (
+                    <div className="statement">{this.state.cat_name} is sleeping. Do not disturb when {this.state.cat_name} regains energy!</div>
+               );
+          }
+     }
+
      changeCat(cat) {
           this.setState(state => ({
                cat: cat
@@ -276,6 +309,7 @@ export default class Main extends Component {
                          </div>
                     </div>   
                     {this.renderCat()}
+                    {this.renderStatement()}
                     <div className="interaction">
                          {/* <Button type="button" className="button" id="feed" onClick={() => {this.feed_reset(); this.changeCat(cat_eat)}}>
                               <img src={button_feed} alt="" width="140" height="140"/>
